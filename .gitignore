@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+*.suo
+*.sqlite
+/.vs
+/src/.vs/DFO/config
+/src/DFO/bin/Debug/net6.0
+/src/DFO/obj

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DFO": {
+      "commandName": "Project",
+      "commandLineArgs": "changeprefix -f tt -t yy"
+    }
+  }
+}

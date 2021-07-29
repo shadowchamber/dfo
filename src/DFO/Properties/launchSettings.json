@@ -2,7 +2,7 @@
   "profiles": {
     "DFO": {
       "commandName": "Project",
-      "commandLineArgs": "changeprefix -f tt -t yy"
+      "commandLineArgs": "changeprefix -f BWFASVPA -t EPAMASVPA -s BoweryASVPA -d EpamASVPA -p \"c:\\\\AOSService\\\\BoweryASVPA\\\\\""
     }
   }
 }

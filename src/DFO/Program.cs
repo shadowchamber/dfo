@@ -1,15 +1,22 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿// <copyright file="Program.cs" company="Shadowchamber">
+// Copyright (c) Shadowchamber. All rights reserved.
+// </copyright>
 
 namespace DFO
 {
+    using System.Threading;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+
+    /// <summary>
+    /// Main application class.
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Entry point.
+        /// </summary>
+        /// <param name="args">startup arguments.</param>
         public static void Main(string[] args)
         {
             var builder = CreateHostBuilder(args);
@@ -18,11 +25,16 @@ namespace DFO
 
             service.Args = args;
 
-            CancellationToken cancellationToken = new CancellationToken();
+            CancellationToken cancellationToken = CancellationToken.None;
             var task = service.ExecuteAsync(cancellationToken);
             task.Wait();
         }
 
+        /// <summary>
+        /// Host builder creation.
+        /// </summary>
+        /// <param name="args">startup arguments.</param>
+        /// <returns>host builder object.</returns>
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             return Host.CreateDefaultBuilder(args)
@@ -34,4 +46,3 @@ namespace DFO
         }
     }
 }
-

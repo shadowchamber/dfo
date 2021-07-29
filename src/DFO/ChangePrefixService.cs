@@ -64,6 +64,11 @@ namespace DFO
             string projFile = Path.Combine(this.options.Path, $"Projects\\{this.options.DestinationPrefix}\\{this.options.SourcePrefix}.rnrproj");
             string projFileNew = Path.Combine(this.options.Path, $"Projects\\{this.options.DestinationPrefix}\\{this.options.DestinationPrefix}.rnrproj");
 
+            if (!File.Exists(projFile))
+            {
+                return;
+            }
+
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 projFile = Path.Combine(this.options.Path, $"Projects/{this.options.DestinationPrefix}/{this.options.SourcePrefix}.rnrproj");
@@ -82,8 +87,18 @@ namespace DFO
 
         private void UpdateProjectDir()
         {
+            if (!Directory.Exists(Path.Combine(this.options.Path, $"Projects")))
+            {
+                return;
+            }
+
             string projDir = Path.Combine(this.options.Path, $"Projects\\{this.options.SourcePrefix}");
             string projDirNew = Path.Combine(this.options.Path, $"Projects\\{this.options.DestinationPrefix}");
+
+            if (!Directory.Exists(projDir))
+            {
+                return;
+            }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
@@ -106,6 +121,11 @@ namespace DFO
         private async Task UpdateSolutionAsync()
         {
             string slnFile = Path.Combine(this.options.Path, $"{this.options.SourcePrefix}.sln");
+
+            if (!File.Exists(slnFile))
+            {
+                return;
+            }
 
             string descrContent = await File.ReadAllTextAsync(slnFile).ConfigureAwait(false);
 

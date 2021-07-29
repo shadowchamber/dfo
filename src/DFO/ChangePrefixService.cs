@@ -6,6 +6,7 @@ namespace DFO
 {
     using System;
     using System.IO;
+    using System.Runtime.InteropServices;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Extensions.Logging;
@@ -63,6 +64,12 @@ namespace DFO
             string projFile = Path.Combine(this.options.Path, $"Projects\\{this.options.DestinationPrefix}\\{this.options.SourcePrefix}.rnrproj");
             string projFileNew = Path.Combine(this.options.Path, $"Projects\\{this.options.DestinationPrefix}\\{this.options.DestinationPrefix}.rnrproj");
 
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                projFile = Path.Combine(this.options.Path, $"Projects/{this.options.DestinationPrefix}/{this.options.SourcePrefix}.rnrproj");
+                projFileNew = Path.Combine(this.options.Path, $"Projects/{this.options.DestinationPrefix}/{this.options.DestinationPrefix}.rnrproj");
+            }
+
             string descrContent = await File.ReadAllTextAsync(projFile).ConfigureAwait(false);
 
             descrContent = descrContent.Replace(this.options.SourcePrefix, this.options.DestinationPrefix);
@@ -76,8 +83,13 @@ namespace DFO
         private void UpdateProjectDir()
         {
             string projDir = Path.Combine(this.options.Path, $"Projects\\{this.options.SourcePrefix}");
-
             string projDirNew = Path.Combine(this.options.Path, $"Projects\\{this.options.DestinationPrefix}");
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                projDir = Path.Combine(this.options.Path, $"Projects/{this.options.SourcePrefix}");
+                projDirNew = Path.Combine(this.options.Path, $"Projects/{this.options.DestinationPrefix}");
+            }
 
             Directory.Move(projDir, projDirNew);
         }
@@ -154,6 +166,11 @@ namespace DFO
         {
             var descriptorFile = Path.Combine(this.options.Path, $"Descriptor\\{this.options.SourcePrefix}.xml");
 
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                descriptorFile = Path.Combine(this.options.Path, $"Descriptor/{this.options.SourcePrefix}.xml");
+            }
+
             if (!File.Exists(descriptorFile))
             {
                 throw new Exception($"failed to load descriptor file {descriptorFile}");
@@ -166,6 +183,11 @@ namespace DFO
             await File.WriteAllTextAsync(descriptorFile, descrContent).ConfigureAwait(false);
 
             var descriptorFileNew = Path.Combine(this.options.Path, $"Descriptor\\{this.options.DestinationPrefix}.xml");
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                descriptorFileNew = Path.Combine(this.options.Path, $"Descriptor/{this.options.DestinationPrefix}.xml");
+            }
 
             File.Move(descriptorFile, descriptorFileNew);
         }

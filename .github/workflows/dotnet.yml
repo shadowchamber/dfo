@@ -1,9 +1,9 @@
 name: .NET
 
-on:
+on: 
   push:
-    tags:
-      - "v*.*.*"
+    branches:
+      - master
 
 jobs:
   build:
@@ -27,9 +27,11 @@ jobs:
       with:
         files: publish/ 
         dest: dfo.zip
-    - name: Release
-      uses: softprops/action-gh-release@v1
+    - uses: "marvinpinto/action-automatic-releases@latest"
       with:
-        files: dfo.zip
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: false
+        title: "Release Build"
+        files: |
+          dfo.zip

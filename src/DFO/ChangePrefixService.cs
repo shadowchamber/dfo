@@ -118,7 +118,6 @@ namespace DFO
             string filenameNoExt = Path.GetFileNameWithoutExtension(file);
             string ext = Path.GetExtension(file);
             string filedir = Path.GetDirectoryName(file);
-
             string newFilename = filenameNoExt.Replace(this.options.FromPrefix, this.options.ToPrefix).Replace(this.options.SourcePrefix, this.options.DestinationPrefix);
             string newFile = Path.Combine(filedir, newFilename + ext);
 
